@@ -3,6 +3,7 @@ import json
 import logging
 import asyncio
 import time
+from keep_alive import keep_alive
 from datetime import datetime, timezone
 
 import discord
@@ -10,6 +11,19 @@ from discord import app_commands
 from discord.ext import commands
 from dotenv import load_dotenv
 
+# --- Keep Alive ---
+
+if __name__ == "__main__":
+    keep_alive()  # 👈 this keeps Replit alive
+    try:
+        asyncio.run(_start_bot())
+    except KeyboardInterrupt:
+        logger.info("Keyboard interrupt received; shutting down")
+        try:
+            asyncio.run(bot.close())
+        except Exception:
+            pass
+            
 # --- Load .env file ---
 load_dotenv()
 
